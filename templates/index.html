@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Healthcare Prediction</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+            text-align:center;
+            padding:30px;
+        }
+        .box{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            width:400px;
+            margin:auto;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select{
+            width:90%;
+            padding:10px;
+            margin:5px;
+        }
+        button{
+            padding:12px 20px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+        h2{
+            color:green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Healthcare Prediction</h1>
+
+    <form action="/predict" method="post">
+
+        <input type="number" name="age" placeholder="Age" required>
+
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <select name="blood">
+            <option value="">Blood Type</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="AB">AB</option>
+            <option value="O">O</option>
+        </select>
+
+        <input type="text" name="condition" placeholder="Medical Condition" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <h2>{{ prediction_text }}</h2>
+</div>
+
+</body>
+</html>
