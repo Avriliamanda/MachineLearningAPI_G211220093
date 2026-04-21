@@ -10,21 +10,12 @@ model = pickle.load(open("linear_regression_model.pkl", "rb"))
 def Home():
     return render_template("index.html")
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods = ["POST"])
 def predict():
-    try:
-        age = int(request.form['age'])
-        gender = request.form['gender']
-        blood = request.form['blood']
-        condition = request.form['condition']
-
-        data = [[age, gender, blood, condition]]
-        transformed_data = transformer.transform(data)
-
-        prediction = model.predict(transformed_data)
-
-        return render_template("index.html",
-                               prediction_text=f"Predicted Billing Amount: {prediction[0]:.2f}")
+    float_features = [float(x) for x in request.form.values()]
+    features = [np.array(float_features)]
+    prediction = model.predict(features)
+    return render_template("index.html", prediction_text = "The flower species is {}".format(prediction))
 
     except Exception as e:
         print("ERROR:", e)  # muncul di logs
