@@ -22,5 +22,25 @@ def predict():
         return render_template("index.html",
                                prediction_text=f"ERROR: {str(e)}")
 
+@app.route("/predict", methods=["POST"])
+def predict():
+    try:
+        age = int(request.form['age'])
+        gender = request.form['gender']
+        blood = request.form['blood']
+        condition = request.form['condition']
+
+        data = [[age, gender, blood, condition]]
+        transformed_data = transformer.transform(data)
+
+        prediction = model.predict(transformed_data)
+
+        return render_template("index.html",
+                               prediction_text=f"Predicted Billing Amount: {prediction[0]:.2f}")
+
+    except Exception as e:
+        return render_template("index.html",
+                               prediction_text=f"ERROR: {str(e)}")
+
 if __name__ == "__main__":
     app.run(debug=True)
